@@ -32,8 +32,7 @@ def show_progress
 end
 
 def guess_letter(input)
-  @guess = input.strip.downcase
-  @already_guessed_letters << @guess
+  input.strip.downcase
 end 
 
 def letter_in_word(letter, word)
@@ -46,6 +45,7 @@ def word_finished
 end
 
 def letter_has_already_been_guessed(letter, already_guessed_letters)
+  
   already_guessed_letters.include?(letter)
 end
 

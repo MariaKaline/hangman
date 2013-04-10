@@ -4,11 +4,11 @@ setup
 get_word
 while lives_left?
   show_progress
-  input = gets
-  guess_letter(input)
-  if letter_has_already_been_guessed(@guess, @already_guessed_letters)
+  guess = guess_letter(gets)
+  @already_guessed_letters << guess
+  if letter_has_already_been_guessed(guess, @already_guessed_letters[0..-2])
     puts "You already guessed that letter. Try another one."
-  elsif letter_in_word(@guess, @answer)
+  elsif letter_in_word(guess, @answer)
     puts "letter in word"
     if word_finished
       win
