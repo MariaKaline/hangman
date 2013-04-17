@@ -15,9 +15,9 @@ def lives_left?
   @attempts < 10
 end
 
-def update_progress(answer)
+def update_progress
   @progress=""
-  answer.chars.each do |letter|
+  @answer.chars.each do |letter|
     if @already_guessed_letters.include?(letter)
       @progress = @progress + letter
     else 
@@ -26,26 +26,24 @@ def update_progress(answer)
   end
 end
 
-def show_progress(answer)
-  update_progress(answer)
+def show_progress
+  update_progress
   puts @progress
 end
 
-def guess_letter(input)
-  input.strip.downcase
+def guess_letter
+  puts "Guess a letter!"
+  @already_guessed_letters << gets.strip
 end 
 
-def letter_in_word(letter, word)
-  word.include?(letter)
+def letter_in_word
+  last_guess = @already_guessed_letters.last
+  @answer.include?(last_guess)
 end
 
-def word_finished(answer)
-  update_progress(answer)
-  @progress == answer
-end
-
-def item_in_list?(item, list)
-  list.include?(item)
+def word_finished
+  update_progress
+  @progress == @answer
 end
 
 def lose_a_life
@@ -63,3 +61,17 @@ def win
 end
   
 
+setup
+get_word
+while lives_left?
+  show_progress
+  guess_letter
+  if letter_in_word
+    puts "leter in word"
+    if word_finished
+      win
+    end
+  else 
+    lose_a_life
+  end
+end
